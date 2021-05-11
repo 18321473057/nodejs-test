@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监控报表</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .box {
+            height: 100%;
+            background-color: #070549
+        }
+
+        .title_span {
+            font-size: 1em;
+            color: #FFFFFF;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .div_span {
+            font-size: 1em;
+            color: #FFFFFF;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .round {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+    </style>
+</head>
+<body >
+<div class="box">
+    <div style="display: none">
+        <input id="workNo" value="">
+    </div>
+
+
+    <div style="margin-left: 2%; height: 100px">
+        <div style="float: left;line-height:150px; width: 55%;height: 100px">
+            <img src="../img/logo.jpg"/>
+        </div>
+        <div style="margin-left: 75%;line-height:100px; text-align:center ">
+            <span style=" font-size: 1.2em; color: #FFFFFF;font-weight: bold;padding-top: 80px ">2021/04/03 14:53:30</span>
+        </div>
+    </div>
+    <div style="height: 100px;line-height:100px; text-align:center;font-size: 1.4em; color: #FFFFFF;font-weight: bold; ">
+        <span>连铸连轧&连冲现场准备工作看板</span>
+    </div>
+
+    <div style="height: 100%">
+        <div style="width:94%;line-height:45px; height: 5%; margin-left: 3%;text-align: left;border:1px solid #96929E;border-radius:30px;  background-color:  #040E91">
+            <span class="title_span" style="width:15%;">机台</span>
+            <span class="title_span" style="width:15%;">人工首检情况</span>
+            <span class="title_span" style="width:15%;">设备首检情况</span>
+            <span class="title_span" style="width:15%;">开工确认</span>
+            <span class="title_span" style="width:38%;">派工单</span>
+        </div>
+
+        <div id="machine_div" style="width:94%;line-height:45px;   margin-left: 3%;margin-top:1px;text-align: left;border:1px solid #96929E;border-radius:30px;background-color: #786877">
+            <!--<div style="width:100%;">-->
+                <!--<div style=";width: 15%;">-->
+                    <!--<span class="div_span"-->
+                          <!--style="width: 100%;border:1px solid #96929E; background-color: #00D2FF;border-radius: 30px;float: left">铅带一号机</span>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left; height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #ED0A0A;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left; height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="text-align: center">-->
+                     <!--<span class="div_span"-->
+                           <!--style="width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px">-->
+                         <!--161020210430008-->
+                     <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div style="width:100%;">-->
+                <!--<div style="width: 15%;">-->
+                    <!--<span class="div_span"-->
+                          <!--style="width: 100%;border:1px solid #96929E; background-color: #ED0A0A;border-radius: 30px;float: left">铅带二号机</span>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="text-align: center">-->
+                     <!--<span class="div_span"-->
+                           <!--style="width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px">-->
+                         <!--161020210430008-->
+                     <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+
+        <div id="examine_div" style="width:94%;line-height:45px;  margin-left: 3%;margin-top:1px;text-align: left;border:1px solid #96929E;border-radius:30px;background-color: #406750">
+            <!--<div style="width:100%;">-->
+                <!--<div style=";width: 15%;">-->
+                    <!--<span class="div_span"-->
+                          <!--style="width: 100%;border:1px solid #96929E; background-color: #00D2FF;border-radius: 30px;float: left">铅带一号机</span>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left; height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #ED0A0A;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left; height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="text-align: center">-->
+                     <!--<span class="div_span"-->
+                           <!--style="width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px">-->
+                         <!--161020210430008-->
+                     <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div style="width:100%;">-->
+                <!--<div style="width: 15%;">-->
+                    <!--<span class="div_span"-->
+                          <!--style="width: 100%;border:1px solid #96929E; background-color: #474C4D;border-radius: 30px;float: left">铅带一号机</span>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #ED0A0A;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="text-align: center">-->
+                     <!--<span class="div_span"-->
+                           <!--style="width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px">-->
+                         <!--161020210430008-->
+                     <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div style="width:100%;">-->
+                <!--<div style="width: 15%;">-->
+                    <!--<span class="div_span"-->
+                          <!--style="width: 100%;border:1px solid #96929E; background-color: #ED0A0A;border-radius: 30px;float: left">铅带一号机</span>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #ED0A0A;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="text-align: center">-->
+                     <!--<span class="div_span"-->
+                           <!--style="width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px">-->
+                         <!--161020210430008-->
+                     <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div style="width:100%;">-->
+                <!--<div style="width: 15%;">-->
+                    <!--<span class="div_span"-->
+                          <!--style="width: 100%;border:1px solid #96929E; background-color: #00D2FF;border-radius: 30px;float: left">铅带一号机</span>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="width:15%; float: left;height: 45px; text-align: center">-->
+                    <!--<canvas class="round" style=" background-color: #3EFF00;"/>-->
+                <!--</div>-->
+                <!--<div style="text-align: center">-->
+                     <!--<span class="div_span"-->
+                           <!--style="width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px">-->
+                         <!--161020210430008-->
+                     <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+
+</div>
+</body>
+<script>
+    var mrOpration = {
+        machineBCOne: (type) => {
+            if (type == 1) {
+                return 'background-color: #00D2FF;';
+            } else if (type == 2) {
+                return 'background-color: #ED0A0A;';
+            }
+        },
+        machineBCTwo: (type) => {
+            if (type == 1) {
+                return 'background-color: #00D2FF;';
+            } else if (type == 2) {
+                return 'background-color: #474C4D;';
+            } else if (type == 3) {
+                return 'background-color: #ED0A0A;';
+            }
+        },
+        examineBC: (type) => {
+            if (type == 1) {
+                return 'background-color: #3EFF00;';
+            } else if (type == 2) {
+                return 'background-color: #ED0A0A;';
+            }
+        }
+    }
+
+
+//    const machineData =[];
+    const machineData =[{'A':'铅带一号机','B':'2','C':'1','D':'1','E':'161020210430008'},
+        {'A':'铅带二号机','B':'1','C':'1','D':'1','E':'161020210430008'}];
+
+    const examineData =[{'A':'冲网一号机','B':'1','C':'2','D':'1','E':'161020210430008'},
+        {'A':'冲网二号机','B':'2','C':'1','D':'1','E':'161020210430008'},
+        {'A':'冲网三号机','B':'1','C':'2','D':'1','E':'161020210430008'},
+        {'A':'冲网死号机','B':'1','C':'1','D':'1','E':'161020210430008'},
+        ];
+
+
+    $(function(){
+        loadMachineTable();
+        loadExamineTable();
+    })
+
+    function loadMachineTable(){
+        var addHtml ="";
+        if( machineData.length == 0){
+            $("#machine_div").remove();
+            return ;
+        }
+        for( i  in machineData){
+            let rowd = machineData[i];
+            addHtml +="<div style='width:100%;'>\n" +
+                "    <div style=';width: 15%;'>\n" +
+                "        <span class='div_span' style='width: 100%;border:1px solid #96929E; "+mrOpration.machineBCOne((i%2)+1)+"border-radius: 30px;float: left'>"+rowd.A+"</span>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='"+mrOpration.examineBC(rowd.B)+"'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left;height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='"+mrOpration.examineBC(rowd.C)+"'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='"+mrOpration.examineBC(rowd.D)+"'/>\n" +
+                "    </div>\n" +
+                "    <div style='text-align: center'>\n" +
+                "        <span class='div_span' style='width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px'>"+rowd.E+"</span>\n" +
+                "    </div>\n" +
+                "</div>\n";
+         }
+        $("#machine_div").html(addHtml);
+    }
+
+    function loadExamineTable(){
+        var addHtml ="";
+        if( examineData.length == 0){
+            $("#examine_div").remove();
+            return ;
+        }
+        for( i  in examineData){
+            let rowd = examineData[i];
+            addHtml +="<div style='width:100%;'>\n" +
+                "    <div style=';width: 15%;'>\n" +
+                "        <span class='div_span' style='width: 100%;border:1px solid #96929E; "+mrOpration.machineBCTwo((i%3)+1)+" border-radius: 30px;float: left'>"+rowd.A+"</span>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='"+mrOpration.examineBC(rowd.B)+"'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left;height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='"+mrOpration.examineBC(rowd.C)+"'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='"+mrOpration.examineBC(rowd.D)+"'/>\n" +
+                "    </div>\n" +
+                "    <div style='text-align: center'>\n" +
+                "        <span class='div_span' style='width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px'>"+rowd.E+"</span>\n" +
+                "    </div>\n" +
+                "</div>\n";
+         }
+        $("#examine_div").html(addHtml);
+    }
+
+</script>
+</html>

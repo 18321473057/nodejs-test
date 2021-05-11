@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>连铸连扎质量工艺指标时序图</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #0047F5
+        }
+
+        .box {
+            height: 100%;
+        }
+
+        .title_span {
+            font-size: 1em;
+            color: #FFFFFF;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .div_span {
+            font-size: 1em;
+            color: #FFFFFF;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .round {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+
+        #data_div {
+            width: calc(100% - 150px);
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div style="display: none">
+        <input id="workNo" value="">
+    </div>
+
+    <div style="margin-left: 2%; height:150px">
+        <div style="float: left;line-height:150px; width: 20%;height: 100px">
+            <img src="../img/logo.jpg"/>
+        </div>
+        <div style=" text-align:center;float: left;font-size: 2.4em; color: #FFFFFF;font-weight: bolder; width: 55%; line-height:100px;">
+            <span style="padding-top: 80px ">连铸连扎质量工艺指标时序图</span>
+        </div>
+        <div style="margin-left: 75%;line-height:100px; text-align:center ">
+            <span id='time' style=" font-size: 1.2em; color: #FFFFFF;font-weight: bold;padding-top: 80px "></span>
+        </div>
+    </div>
+
+
+    <div style="height: calc(100% - 150px);">
+        <div style="margin-left: 10%;background-color: #100C2A ;height: 48%;width: 39.9%;float: left">
+
+        </div>
+        <div style="margin-left: 50%;background-color: #100C2A ;height: 48%;width: 39.9%">
+
+        </div>
+        <div style="margin-left: 10%;background-color: #100C2A ;height: 48%;width: 39.9%;float: left">
+
+        </div>
+        <div style="margin-left: 50%;background-color: #100C2A ;height: 48%;width: 39.9%">
+
+        </div>
+        <!--        <div style="margin-left: 10%;background-color: #100C2A ;height: 40%;width: 40%;float: left">-->
+        <!--        </div>-->
+        <!--        <div style="margin-left: 50%;background-color: #100C2A ;height: 40%;width: 40%">-->
+        <!--        </div>-->
+
+        <!--        <div id="machine_div"-->
+        <!--             style="width:94%; line-height:45px; margin-left: 3%; margin-top:1px; text-align: left; border:1px solid #96929E;border-radius:30px;background-color: #786877">-->
+
+        <!--        </div>-->
+
+    </div>
+</div>
+</body>
+<script>
+    var mrOpration = {
+        machineBCOne: (type) => {
+            if (type == 1) {
+                return 'background-color: #00D2FF;';
+            } else if (type == 2) {
+                return 'background-color: #ED0A0A;';
+            }
+        },
+        machineBCTwo: (type) => {
+            if (type == 1) {
+                return 'background-color: #00D2FF;';
+            } else if (type == 2) {
+                return 'background-color: #474C4D;';
+            } else if (type == 3) {
+                return 'background-color: #ED0A0A;';
+            }
+        },
+        examineBC: (type) => {
+            if (type == 1) {
+                return 'background-color: #3EFF00;';
+            } else if (type == 2) {
+                return 'background-color: #ED0A0A;';
+            }
+        },
+
+        dateTime: () => {
+            date = new Date();
+            year = date.getFullYear();
+            month = date.getMonth() + 1;
+            day = date.getDate();
+            hour = date.getHours();
+            minute = date.getMinutes();
+            second = date.getSeconds();
+            month = month < 10 ? ("0" + month) : month;
+            day = day < 10 ? ("0" + day) : day;
+            hour = hour < 10 ? ("0" + hour) : hour;
+            minute = minute < 10 ? ("0" + minute) : minute;
+            second = second < 10 ? ("0" + second) : second;
+            Timer = year + '/' + month + '/' + day + '   ' + hour + ':' + minute + ':' + second;
+            //在页面上插入日期
+            $("#time").html(Timer);
+            setTimeout(function () {
+                mrOpration.dateTime();
+            }, 1000);
+        }
+
+
+    }
+
+
+    //    const machineData =[];
+    const machineData = [{'A': '铅带一号机', 'B': '2', 'C': '1', 'D': '1', 'E': '161020210430008'},
+        {'A': '铅带二号机', 'B': '1', 'C': '1', 'D': '1', 'E': '161020210430008'}];
+
+    const examineData = [{'A': '冲网一号机', 'B': '1', 'C': '2', 'D': '1', 'E': '161020210430008'},
+        {'A': '冲网二号机', 'B': '2', 'C': '1', 'D': '1', 'E': '161020210430008'},
+        {'A': '冲网三号机', 'B': '1', 'C': '2', 'D': '1', 'E': '161020210430008'},
+        {'A': '冲网死号机', 'B': '1', 'C': '1', 'D': '1', 'E': '161020210430008'},
+    ];
+
+
+    $(function () {
+        mrOpration.dateTime();
+        loadMachineTable();
+        loadExamineTable();
+    })
+
+    function loadMachineTable() {
+        var addHtml = "";
+        if (machineData.length == 0) {
+            $("#machine_div").remove();
+            return;
+        }
+        for (i in machineData) {
+            let rowd = machineData[i];
+            addHtml += "<div style='width:100%;'>\n" +
+                "    <div style=';width: 15%;'>\n" +
+                "        <span class='div_span' style='width: 100%;border:1px solid #96929E; " + mrOpration.machineBCOne((i % 2) + 1) + "border-radius: 30px;float: left'>" + rowd.A + "</span>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='" + mrOpration.examineBC(rowd.B) + "'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left;height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='" + mrOpration.examineBC(rowd.C) + "'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='" + mrOpration.examineBC(rowd.D) + "'/>\n" +
+                "    </div>\n" +
+                "    <div style='text-align: center'>\n" +
+                "        <span class='div_span' style='width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px'>" + rowd.E + "</span>\n" +
+                "    </div>\n" +
+                "</div>\n";
+        }
+        $("#machine_div").html(addHtml);
+    }
+
+    function loadExamineTable() {
+        var addHtml = "";
+        if (examineData.length == 0) {
+            $("#examine_div").remove();
+            return;
+        }
+        for (i in examineData) {
+            let rowd = examineData[i];
+            addHtml += "<div style='width:100%;'>\n" +
+                "    <div style=';width: 15%;'>\n" +
+                "        <span class='div_span' style='width: 100%;border:1px solid #96929E; " + mrOpration.machineBCTwo((i % 3) + 1) + " border-radius: 30px;float: left'>" + rowd.A + "</span>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='" + mrOpration.examineBC(rowd.B) + "'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left;height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='" + mrOpration.examineBC(rowd.C) + "'/>\n" +
+                "    </div>\n" +
+                "    <div style='width:15%; float: left; height: 45px; text-align: center'>\n" +
+                "        <canvas class='round' style='" + mrOpration.examineBC(rowd.D) + "'/>\n" +
+                "    </div>\n" +
+                "    <div style='text-align: center'>\n" +
+                "        <span class='div_span' style='width: 18%;border:1px solid #96929E; background-color: #2AABAB;border-radius: 15px'>" + rowd.E + "</span>\n" +
+                "    </div>\n" +
+                "</div>\n";
+        }
+        $("#examine_div").html(addHtml);
+    }
+
+</script>
+</html>

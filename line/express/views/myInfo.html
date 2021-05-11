@@ -1,0 +1,90 @@
+<html lang="zh-CN">
+<head>
+    <script src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <style>
+        .table-c table {
+            border-right: 1px solid #F00;
+            border-bottom: 1px solid #F00
+        }
+
+        .table-c table td {
+            border-left: 1px solid #F00;
+            border-top: 1px solid #F00
+        }
+
+        /* css注释：只对table标签设置红色边框样式 */
+    </style>
+</head>
+
+
+<div>
+    <div style="width:98%;height:15%;margin-left: 1%; border:1px solid #000">
+        <p style="font-weight: bold">开发者信息</p>
+        <span style="border-width: 400px">id:{{data.autherData[0].id}}</span>
+        <span style="width: 400px">name:{{data.autherData[0].create_user_code}}</span>
+        <span style="width: 400px"> cc:{{data.autherData[0].cc}}</span>
+    </div>
+    <hr/>
+
+    <div class="table-c" style="margin-left: 2%">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>id</td>
+                <td>姓名</td>
+                <td>年纪</td>
+                <td>爱好</td>
+                <td>职业</td>
+                <td>手机号</td>
+                <td>创建人</td>
+                <td>创建时间</td>
+                <td>头像</td>
+                <td>操作</td>
+            </tr>
+            {{each data.userData}}
+            <tr>
+                <td>{{$value.id}}</td>
+                <td>{{$value.user_name}}</td>
+                <td>{{$value.age}}</td>
+                <td>{{$value.hobby}}</td>
+                <td>{{$value.job}}</td>
+                <td>{{$value.mobile}}</td>
+                <td>{{$value.create_user_code}}</td>
+                <td>{{$value.create_time}}</td>
+                <td>
+                    <img src="{{$value.pic_img}}">
+                </td>
+                <td>
+                 <input onchange="opration.fileChanger(this)" type="file"/>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>
+
+<script>
+    var opration = {
+          fileChanger : (that)=>{
+              var formData = new FormData();
+              formData.append('img', $(that)[0].files[0]);
+              $.ajax({
+                  url: '/upImg',
+                  type: 'POST',
+                  contentType: false,
+                  processData: false,
+                  data: formData,
+                  success: function () {
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  }
+              });
+         }
+
+    }
+
+</script>
+
+
+</html>
+
